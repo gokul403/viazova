@@ -20,7 +20,7 @@ export function ViazovaLogo({
       <img
         src={viazovaLogo}
         alt="Viazova — The Complete Travel Solution"
-        className={`${sizeClass} object-contain scale-125`}
+        className={`${sizeClass} object-contain scale-150`}
       />
     </span>
   );
