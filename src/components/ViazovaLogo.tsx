@@ -1,4 +1,4 @@
-import viazovaLogo from "@/assets/viazova-logo.png";
+import viazovaLogo from "@/assets/Image (4).png";
 
 type ViazovaLogoProps = {
   className?: string;
@@ -20,7 +20,7 @@ export function ViazovaLogo({
       <img
         src={viazovaLogo}
         alt="Viazova — The Complete Travel Solution"
-        className={`${sizeClass} object-contain`}
+        className={`${sizeClass} object-contain scale-125`}
       />
     </span>
   );
