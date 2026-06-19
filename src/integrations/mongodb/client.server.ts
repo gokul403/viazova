@@ -4,31 +4,34 @@ const DB_NAME = "viazova";
 
 function createMongoClient() {
   const uri = process.env.MONGODB_URI;
-  if (!uri) {
-    const message =
-      "Missing MongoDB environment variable: MONGODB_URI. Set it in .env.";
-    console.error(`[MongoDB] ${message}`);
-    throw new Error(message);
-  }
+  if (!uri) throw new Error("Missing MONGODB_URI");
 
-  return new MongoClient(uri);
+  return new MongoClient(uri, {
+    maxPoolSize: 10,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+  });
 }
 
 let _client: MongoClient | undefined;
-let _db: Db | undefined;
 
 async function getClient(): Promise<MongoClient> {
-  if (!_client) {
-    _client = createMongoClient();
-    await _client.connect();
+  if (_client) {
+    try {
+      await _client.db(DB_NAME).command({ ping: 1 });
+      return _client;
+    } catch {
+      await _client.close().catch(() => {});
+      _client = undefined;
+    }
   }
+
+  _client = createMongoClient();
+  await _client.connect();
   return _client;
 }
 
 export async function getDb(): Promise<Db> {
-  if (!_db) {
-    const client = await getClient();
-    _db = client.db(DB_NAME);
-  }
-  return _db;
+  const client = await getClient();
+  return client.db(DB_NAME);
 }
