@@ -93,7 +93,7 @@ function LandingPage() {
             <span className="grid size-9 place-items-center rounded-xl bg-white/15 backdrop-blur-sm">
               <Plane className="size-5" />
             </span>
-            <span className="text-lg tracking-tight">Wanderlust Travels</span>
+            <span className="text-lg tracking-tight">VIAZOVA</span>
           </div>
           <span className="hidden items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm backdrop-blur-sm md:inline-flex">
             <Sparkles className="size-4 text-accent" /> Limited Edition Campaign
@@ -263,13 +263,13 @@ function LandingPage() {
             description="A flat 10% off on your next tour package booking."
             icon={Percent}
           />
-          <PrizeCard
+          {/* <PrizeCard
             badge="49 Outcomes"
             title="Better Luck Next Time"
             count="49"
             description="Not every entry wins — but every participant matters."
             icon={Sparkles}
-          />
+          /> */}
         </div>
       </section>
 
