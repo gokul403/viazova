@@ -440,7 +440,7 @@ function ResultCard({
       <>
         <Confetti count={180} />
         <div className="animate-pop-in overflow-hidden rounded-3xl bg-gradient-brand p-1 shadow-elegant">
-          <div className="rounded-[calc(theme(borderRadius.3xl)-4px)] bg-card p-10 text-center">
+          <div className="rounded-3xl bg-card p-10 text-center">
             <div className="mx-auto grid size-20 place-items-center rounded-2xl bg-gradient-gold text-accent-foreground shadow-gold-glow">
               <Plane className="size-10" />
             </div>
