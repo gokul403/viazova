@@ -22,33 +22,12 @@ export type DrawResult = {
 export const enterLuckyDraw = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => inputSchema.parse(data))
   .handler(async ({ data }): Promise<DrawResult> => {
-    const { supabaseAdmin } = await import(
-      "@/integrations/supabase/client.server"
-    );
+    const { enterLuckyDrawService } = await import("@/lib/draw.service");
 
-    const { data: result, error } = await supabaseAdmin.rpc(
-      "enter_lucky_draw" as never,
-      { p_name: data.name, p_mobile: data.mobile } as never,
-    );
-
-    if (error) {
-      console.error("[enterLuckyDraw] RPC error", error);
+    try {
+      return await enterLuckyDrawService(data.name, data.mobile);
+    } catch (error) {
+      console.error("[enterLuckyDraw] error", error);
       throw new Error("Something went wrong. Please try again.");
     }
-
-    const row = (Array.isArray(result) ? result[0] : result) as
-      | {
-          reward: DrawResult["reward"];
-          won: boolean;
-          already_participated: boolean;
-        }
-      | null
-      | undefined;
-    if (!row) throw new Error("No result from draw");
-
-    return {
-      reward: row.reward,
-      won: row.won,
-      alreadyParticipated: row.already_participated,
-    };
   });

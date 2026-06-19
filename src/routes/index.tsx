@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Plane, Sparkles, Ticket, Percent, Gift, Loader2, ShieldCheck, MapPin, Mail, Phone } from "lucide-react";
+import { Sparkles, Ticket, Percent, Gift, Loader2, ShieldCheck, MapPin, Mail, Phone, Plane } from "lucide-react";
 import { enterLuckyDraw, type DrawResult } from "@/lib/draw.functions";
 import heroImage from "@/assets/thailand-hero.jpg";
 import { Confetti } from "@/components/Confetti";
+import { ViazovaLogo } from "@/components/ViazovaLogo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -73,7 +74,7 @@ function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* HERO */}
-      <header className="relative isolate overflow-hidden">
+      <header className="relative isolate flex min-h-svh flex-col overflow-hidden">
         <img
           src={heroImage}
           alt="Aerial view of Thailand's turquoise waters and limestone islands"
@@ -84,36 +85,32 @@ function LandingPage() {
         <div className="absolute inset-0 -z-10 bg-gradient-hero" />
 
         {/* Floating decorative icons */}
-        <Plane className="absolute left-[8%] top-24 size-8 text-accent/80 animate-float" style={{ animationDelay: "0.5s" }} />
+        <Plane className="absolute left-[8%] top-44 size-8 text-accent/80 animate-float sm:top-48" style={{ animationDelay: "0.5s" }} />
         <Sparkles className="absolute right-[10%] top-36 size-7 text-white/70 animate-float" style={{ animationDelay: "1.2s" }} />
         <MapPin className="absolute right-[20%] bottom-32 size-6 text-accent/80 animate-float hidden md:block" />
 
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 text-white">
-          <div className="flex items-center gap-2 font-semibold">
-            <span className="grid size-9 place-items-center rounded-xl bg-white/15 backdrop-blur-sm">
-              <Plane className="size-5" />
-            </span>
-            <span className="text-lg tracking-tight">VIAZOVA</span>
-          </div>
+        <nav className="flex w-full shrink-0 items-center justify-between py-3 pl-2 pr-4 sm:pl-3 sm:pr-6 md:pl-4">
+          <ViazovaLogo variant="header" />
           <span className="hidden items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm backdrop-blur-sm md:inline-flex">
             <Sparkles className="size-4 text-accent" /> Limited Edition Campaign
           </span>
         </nav>
 
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-24 pt-12 lg:grid-cols-2 lg:items-center lg:pb-32 lg:pt-20">
+        <div className="mx-auto flex w-full max-w-7xl flex-1 items-center px-6 py-8 lg:py-10">
+          <div className="grid w-full gap-10 lg:grid-cols-2 lg:items-center lg:gap-12">
           <div className="text-white animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium uppercase tracking-widest backdrop-blur-sm">
               <span className="size-1.5 rounded-full bg-accent" /> VIAZOVA
             </span>
-            <h1 className="mt-5 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 text-4xl font-bold leading-[1.05] sm:text-5xl lg:text-6xl xl:text-7xl">
               ✈️ Viazova Travel <span className="text-gradient-gold">Lucky Draw</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-white/90 sm:text-xl">
+            <p className="mt-4 max-w-xl text-base text-white/90 sm:text-lg lg:mt-5 lg:text-xl">
               Enter your details and stand a chance to win exciting travel rewards including a{" "}
               <strong className="font-semibold text-accent">FREE Flight Ticket to Thailand</strong>.
             </p>
 
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:mt-8">
               {[
                 { icon: Ticket, label: "Thailand Flight", v: "Grand Prize" },
                 { icon: Gift, label: "₹1000 Off", v: "200 winners" },
@@ -125,8 +122,8 @@ function LandingPage() {
                   className="rounded-2xl bg-white/10 p-3 backdrop-blur-md ring-1 ring-white/20"
                 >
                   <Icon className="size-5 text-accent" />
-                  <div className="mt-2 text-sm font-semibold">{label}</div>
-                  <div className="text-xs text-white/75">{v}</div>
+                  <div className="mt-2 text-sm font-semibold tabular-nums">{label}</div>
+                  <div className="text-xs tabular-nums text-white/75">{v}</div>
                 </div>
               ))}
             </div>
@@ -220,6 +217,7 @@ function LandingPage() {
               </div>
             </form>
           </div>
+          </div>
         </div>
       </header>
 
@@ -240,7 +238,7 @@ function LandingPage() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
           <PrizeCard
             badge="Grand Prize"
             title="FREE Flight to Thailand"
@@ -386,10 +384,10 @@ function PrizeCard({
       <div className="mt-5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         {badge}
       </div>
-      <h3 className="mt-1 text-xl font-bold">{title}</h3>
+      <h3 className="mt-1 text-xl font-bold tabular-nums">{title}</h3>
       <p className="mt-2 text-sm text-muted-foreground">{description}</p>
       <div className="mt-5 flex items-baseline gap-1.5">
-        <span className="text-3xl font-bold text-gradient-brand">{count}</span>
+        <span className="font-numeric text-3xl font-bold tracking-tight text-gradient-brand">{count}</span>
         <span className="text-sm text-muted-foreground">total in pool</span>
       </div>
     </div>
@@ -447,7 +445,7 @@ function ResultCard({
             <p className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-accent">
               🎉 Grand Prize Winner
             </p>
-            <h2 className="mt-3 text-4xl font-bold sm:text-5xl">
+            <h2 className="mt-3 text-4xl font-bold tabular-nums sm:text-5xl">
               Congratulations{name ? `, ${name.split(" ")[0]}` : ""}!
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-lg text-muted-foreground">
@@ -472,7 +470,7 @@ function ResultCard({
             <Gift className="size-8" />
           </div>
           <p className="mt-5 text-xs font-bold uppercase tracking-widest text-primary">🎉 Congratulations</p>
-          <h2 className="mt-2 text-3xl font-bold sm:text-4xl">You won ₹1000 Off!</h2>
+          <h2 className="mt-2 text-3xl font-bold tabular-nums sm:text-4xl">You won ₹1000 Off!</h2>
           <p className="mx-auto mt-3 max-w-md text-muted-foreground">
             Use this reward on your next tour package booking with Viazova Travel Solutions. Our team will reach
             out with your unique code.
@@ -491,7 +489,7 @@ function ResultCard({
             <Percent className="size-8" />
           </div>
           <p className="mt-5 text-xs font-bold uppercase tracking-widest text-secondary">🎉 Congratulations</p>
-          <h2 className="mt-2 text-3xl font-bold sm:text-4xl">You won a 10% Discount!</h2>
+          <h2 className="mt-2 text-3xl font-bold tabular-nums sm:text-4xl">You won a 10% Discount!</h2>
           <p className="mx-auto mt-3 max-w-md text-muted-foreground">
             Enjoy a flat 10% off on your next tour package booking with Viazova Travel Solutions.
           </p>
