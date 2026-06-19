@@ -1,5 +1,6 @@
-import type { ClientSession } from "mongodb";
+import type { ClientSession, ObjectId } from "mongodb";
 import { getDb } from "@/integrations/mongodb/client.server";
+import { generateCouponCode } from "@/lib/coupon";
 
 export type RewardName =
   | "THAILAND_FLIGHT"
@@ -11,6 +12,7 @@ export type DrawServiceResult = {
   reward: RewardName;
   won: boolean;
   alreadyParticipated: boolean;
+  couponCode?: string;
 };
 
 const BETTER_LUCK: RewardName = "BETTER_LUCK_NEXT_TIME";
@@ -30,7 +32,7 @@ async function claimRandomReward(session: ClientSession): Promise<RewardName> {
 
   for (let attempt = 0; attempt < 3; attempt++) {
     const [candidate] = await rewardPool
-      .aggregate<{ _id: unknown; rewardName: RewardName }>(
+      .aggregate<{ _id: ObjectId; rewardName: RewardName }>(
         [{ $match: { claimed: false } }, { $sample: { size: 1 } }],
         { session },
       )
@@ -54,6 +56,23 @@ async function claimRandomReward(session: ClientSession): Promise<RewardName> {
   return BETTER_LUCK;
 }
 
+async function createUniqueCouponCode(
+  session: ClientSession,
+): Promise<string> {
+  const db = await getDb();
+  const participants = db.collection("participants");
+
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const couponCode = generateCouponCode();
+    const existing = await participants.findOne({ couponCode }, { session });
+    if (!existing) {
+      return couponCode;
+    }
+  }
+
+  throw new Error("Failed to generate unique coupon code");
+}
+
 export async function enterLuckyDrawService(
   name: string,
   mobile: string,
@@ -69,15 +88,21 @@ export async function enterLuckyDrawService(
     return await session.withTransaction(async () => {
       const existing = await participants.findOne({ mobile }, { session });
       if (existing) {
+        const reward = existing.reward as RewardName;
+        const won = existing.won;
         return {
-          reward: existing.reward as RewardName,
-          won: existing.won,
+          reward,
+          won,
           alreadyParticipated: true,
+          ...(won && existing.couponCode
+            ? { couponCode: existing.couponCode as string }
+            : {}),
         };
       }
 
       const reward = await claimRandomReward(session);
       const won = reward !== BETTER_LUCK;
+      const couponCode = won ? await createUniqueCouponCode(session) : undefined;
 
       await participants.insertOne(
         {
@@ -86,11 +111,17 @@ export async function enterLuckyDrawService(
           mobile,
           reward,
           won,
+          ...(couponCode ? { couponCode } : {}),
         },
         { session },
       );
 
-      return { reward, won, alreadyParticipated: false };
+      return {
+        reward,
+        won,
+        alreadyParticipated: false,
+        ...(couponCode ? { couponCode } : {}),
+      };
     });
   } finally {
     await session.endSession();

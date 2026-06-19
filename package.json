@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "seed": "node --env-file=.env --import tsx scripts/seed-mongodb.ts"
+    "seed": "node --env-file=.env --import tsx scripts/seed-mongodb.ts",
+    "reset": "node --env-file=.env --import tsx scripts/reset-draw.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

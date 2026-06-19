@@ -2,36 +2,40 @@ import { MongoClient, type Db } from "mongodb";
 
 const DB_NAME = "viazova";
 
-function createMongoClient() {
+function createMongoClient(): MongoClient {
   const uri = process.env.MONGODB_URI;
-  if (!uri) throw new Error("Missing MONGODB_URI");
+  if (!uri) {
+    throw new Error("Missing MONGODB_URI");
+  }
 
   return new MongoClient(uri, {
-    maxPoolSize: 10,
-    serverSelectionTimeoutMS: 5000,
+    maxPoolSize: 1,
+    minPoolSize: 0,
+    connectTimeoutMS: 10000,
     socketTimeoutMS: 45000,
+    serverSelectionTimeoutMS: 10000,
   });
 }
 
-let _client: MongoClient | undefined;
+let client: MongoClient | undefined;
+let db: Db | undefined;
 
 async function getClient(): Promise<MongoClient> {
-  if (_client) {
-    try {
-      await _client.db(DB_NAME).command({ ping: 1 });
-      return _client;
-    } catch {
-      await _client.close().catch(() => {});
-      _client = undefined;
-    }
+  if (!client) {
+    client = createMongoClient();
+    await client.connect();
   }
-
-  _client = createMongoClient();
-  await _client.connect();
-  return _client;
+  return client;
 }
 
 export async function getDb(): Promise<Db> {
-  const client = await getClient();
-  return client.db(DB_NAME);
+  if (!db) {
+    db = (await getClient()).db(DB_NAME);
+  }
+  return db;
+}
+
+export async function connectDb(): Promise<{ db: Db; client: MongoClient }> {
+  const connectedClient = await getClient();
+  return { db: await getDb(), client: connectedClient };
 }

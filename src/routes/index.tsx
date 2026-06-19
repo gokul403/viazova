@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Sparkles, Ticket, Percent, Gift, Loader2, ShieldCheck, MapPin, Mail, Phone, Plane } from "lucide-react";
+import { Sparkles, Ticket, Percent, Gift, Loader2, ShieldCheck, MapPin, Mail, Phone, Plane, Copy, Check } from "lucide-react";
 import { enterLuckyDraw, type DrawResult } from "@/lib/draw.functions";
 import heroImage from "@/assets/thailand-hero.jpg";
 import { Confetti } from "@/components/Confetti";
@@ -421,6 +421,11 @@ function ResultCard({
             Your previous result: <strong>{rewardLabel(reward)}</strong>
           </p>
         )}
+        {result.couponCode && (
+          <div className="mt-4">
+            <CouponCodeDisplay code={result.couponCode} label="Your coupon code" />
+          </div>
+        )}
         <button
           onClick={onReset}
           className="mt-6 rounded-xl border border-input px-5 py-2.5 text-sm font-medium hover:bg-muted"
@@ -452,6 +457,11 @@ function ResultCard({
               You have won a <strong className="text-foreground">FREE Flight Ticket to Thailand</strong>.
               Our team will contact you shortly with the next steps.
             </p>
+            {result.couponCode && (
+              <div className="mt-6">
+                <CouponCodeDisplay code={result.couponCode} label="Your reference code" />
+              </div>
+            )}
             <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent/15 px-4 py-2 text-sm font-medium text-accent-foreground">
               <Sparkles className="size-4" /> A once-in-a-lifetime journey awaits ✈️
             </div>
@@ -472,9 +482,13 @@ function ResultCard({
           <p className="mt-5 text-xs font-bold uppercase tracking-widest text-primary">🎉 Congratulations</p>
           <h2 className="mt-2 text-3xl font-bold tabular-nums sm:text-4xl">You won ₹1000 Off!</h2>
           <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-            Use this reward on your next tour package booking with Viazova Travel Solutions. Our team will reach
-            out with your unique code.
+            Use this reward on your next tour package booking with Viazova Travel Solutions.
           </p>
+          {result.couponCode && (
+            <div className="mt-6">
+              <CouponCodeDisplay code={result.couponCode} label="Your coupon code" />
+            </div>
+          )}
         </div>
       </>
     );
@@ -493,6 +507,11 @@ function ResultCard({
           <p className="mx-auto mt-3 max-w-md text-muted-foreground">
             Enjoy a flat 10% off on your next tour package booking with Viazova Travel Solutions.
           </p>
+          {result.couponCode && (
+            <div className="mt-6">
+              <CouponCodeDisplay code={result.couponCode} label="Your coupon code" />
+            </div>
+          )}
         </div>
       </>
     );
@@ -515,6 +534,37 @@ function ResultCard({
       >
         Explore our tour packages
       </a>
+    </div>
+  );
+}
+
+function CouponCodeDisplay({ code, label }: { code: string; label: string }) {
+  const [copied, setCopied] = useState(false);
+
+  async function copyCode() {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard unavailable
+    }
+  }
+
+  return (
+    <div className="mx-auto max-w-sm">
+      <p className="text-sm text-muted-foreground">{label}</p>
+      <div className="mt-2 flex items-center justify-center gap-2 rounded-xl border bg-muted/50 px-4 py-3">
+        <code className="font-mono text-lg font-bold tracking-wider">{code}</code>
+        <button
+          type="button"
+          onClick={copyCode}
+          className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          aria-label="Copy coupon code"
+        >
+          {copied ? <Check className="size-4 text-green-600" /> : <Copy className="size-4" />}
+        </button>
+      </div>
     </div>
   );
 }

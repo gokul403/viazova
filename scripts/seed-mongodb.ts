@@ -16,6 +16,10 @@ async function ensureIndexes(db: ReturnType<MongoClient["db"]>) {
   await db
     .collection("participants")
     .createIndex({ mobile: 1 }, { unique: true, name: "participants_mobile_unique" });
+  await db.collection("participants").createIndex(
+    { couponCode: 1 },
+    { unique: true, sparse: true, name: "participants_coupon_unique" },
+  );
 }
 
 async function seed() {

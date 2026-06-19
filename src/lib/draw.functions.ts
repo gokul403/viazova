@@ -17,6 +17,7 @@ export type DrawResult = {
     | "BETTER_LUCK_NEXT_TIME";
   won: boolean;
   alreadyParticipated: boolean;
+  couponCode?: string;
 };
 
 export const enterLuckyDraw = createServerFn({ method: "POST" })
