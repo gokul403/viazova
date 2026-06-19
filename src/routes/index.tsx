@@ -103,10 +103,10 @@ function LandingPage() {
         <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-24 pt-12 lg:grid-cols-2 lg:items-center lg:pb-32 lg:pt-20">
           <div className="text-white animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium uppercase tracking-widest backdrop-blur-sm">
-              <span className="size-1.5 rounded-full bg-accent" /> Lucky Draw 2026
+              <span className="size-1.5 rounded-full bg-accent" /> VIAZOVA
             </span>
             <h1 className="mt-5 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-              ✈️ Travel <span className="text-gradient-gold">Lucky Draw</span>
+              ✈️ Viazova Travel <span className="text-gradient-gold">Lucky Draw</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-white/90 sm:text-xl">
               Enter your details and stand a chance to win exciting travel rewards including a{" "}
@@ -284,7 +284,7 @@ function LandingPage() {
               "The prize pool consists of exactly 300 guaranteed outcomes and is allocated on a first-come, first-served random basis.",
               "Rewards are non-transferable, non-refundable, and cannot be exchanged for cash equivalent.",
               "The grand-prize Thailand flight ticket is subject to availability of travel dates, valid travel documents, and applicable taxes borne by the winner.",
-              "Discount rewards are valid only on tour packages booked with Wanderlust Travels and cannot be combined with other offers.",
+              "Discount rewards are valid only on tour packages booked with Viazova Travel Solutions and cannot be combined with other offers.",
               "The organizer reserves the right to modify or terminate the campaign at any time without prior notice.",
               "By participating, you consent to being contacted by our team regarding your reward and future travel offers.",
             ].map((t, i) => (
@@ -305,23 +305,23 @@ function LandingPage() {
               <span className="grid size-9 place-items-center rounded-xl bg-white/15">
                 <Plane className="size-5" />
               </span>
-              <span className="text-lg">Wanderlust Travels</span>
+              <span className="text-lg">Viazova Travel Solutions</span>
             </div>
             <p className="mt-4 text-sm text-primary-foreground/80">
-              Crafting unforgettable journeys across Asia and beyond since 2014.
+              Viazova represents a new era in travel - We seek forward shielded and trusted space during the travel along with the assistance. By combining the latest technologies and personalised services, we go extra miles for the satisfaction of our value travelers..
             </p>
           </div>
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider">Contact</h3>
             <ul className="mt-4 space-y-3 text-sm text-primary-foreground/85">
               <li className="flex items-center gap-2">
-                <Phone className="size-4" /> +91 98765 43210
+                <Phone className="size-4" /> +91 90578888800
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="size-4" /> hello@wanderlust-travels.in
+                <Mail className="size-4" /> info@viazova.com
               </li>
               <li className="flex items-center gap-2">
-                <MapPin className="size-4" /> Mumbai, Maharashtra
+                <MapPin className="size-4" /> 1st floor , Safa Complex Ravipuram Junction, MG Road , Kochi, Kerala 682016
               </li>
             </ul>
           </div>
@@ -338,13 +338,13 @@ function LandingPage() {
             <h3 className="text-sm font-semibold uppercase tracking-wider">Disclaimer</h3>
             <p className="mt-4 text-sm text-primary-foreground/80">
               This is a promotional lucky-draw campaign. Rewards are subject to verification and
-              campaign terms. Wanderlust Travels' decision is final.
+              campaign terms. Viazova Travel Solutions' decision is final.
             </p>
           </div>
         </div>
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-primary-foreground/70 sm:flex-row">
-            <span>© {new Date().getFullYear()} Wanderlust Travels. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} Viazova Travel Solutions. All rights reserved.</span>
             <span>Made with care for travelers.</span>
           </div>
         </div>
@@ -474,7 +474,7 @@ function ResultCard({
           <p className="mt-5 text-xs font-bold uppercase tracking-widest text-primary">🎉 Congratulations</p>
           <h2 className="mt-2 text-3xl font-bold sm:text-4xl">You won ₹1000 Off!</h2>
           <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-            Use this reward on your next tour package booking with Wanderlust Travels. Our team will reach
+            Use this reward on your next tour package booking with Viazova Travel Solutions. Our team will reach
             out with your unique code.
           </p>
         </div>
@@ -493,7 +493,7 @@ function ResultCard({
           <p className="mt-5 text-xs font-bold uppercase tracking-widest text-secondary">🎉 Congratulations</p>
           <h2 className="mt-2 text-3xl font-bold sm:text-4xl">You won a 10% Discount!</h2>
           <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-            Enjoy a flat 10% off on your next tour package booking with Wanderlust Travels.
+            Enjoy a flat 10% off on your next tour package booking with Viazova Travel Solutions.
           </p>
         </div>
       </>
