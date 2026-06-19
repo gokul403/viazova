@@ -14,13 +14,67 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      participants: {
+        Row: {
+          created_at: string
+          id: string
+          mobile: string
+          name: string
+          reward: string
+          won: boolean
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          mobile: string
+          name: string
+          reward: string
+          won?: boolean
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          mobile?: string
+          name?: string
+          reward?: string
+          won?: boolean
+        }
+        Relationships: []
+      }
+      reward_pool: {
+        Row: {
+          claimed: boolean
+          claimed_at: string | null
+          id: string
+          reward_name: string
+        }
+        Insert: {
+          claimed?: boolean
+          claimed_at?: string | null
+          id?: string
+          reward_name: string
+        }
+        Update: {
+          claimed?: boolean
+          claimed_at?: string | null
+          id?: string
+          reward_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      enter_lucky_draw: {
+        Args: { p_mobile: string; p_name: string }
+        Returns: {
+          already_participated: boolean
+          reward: string
+          won: boolean
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
