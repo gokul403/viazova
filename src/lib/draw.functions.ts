@@ -36,7 +36,14 @@ export const enterLuckyDraw = createServerFn({ method: "POST" })
       throw new Error("Something went wrong. Please try again.");
     }
 
-    const row = Array.isArray(result) ? result[0] : result;
+    const row = (Array.isArray(result) ? result[0] : result) as
+      | {
+          reward: DrawResult["reward"];
+          won: boolean;
+          already_participated: boolean;
+        }
+      | null
+      | undefined;
     if (!row) throw new Error("No result from draw");
 
     return {
