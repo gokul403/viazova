@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.enter_lucky_draw(text, text) FROM anon, authenticated, public;
