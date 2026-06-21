@@ -462,6 +462,19 @@ function ResultCard({
                 <CouponCodeDisplay code={result.couponCode} label="Your reference code" />
               </div>
             )}
+            <ul className="mx-auto mt-6 max-w-lg space-y-1.5 text-left text-xs leading-relaxed text-muted-foreground">
+              <li className="flex gap-2">
+                <span className="mt-1.5 size-1 shrink-0 rounded-full bg-muted-foreground/50" />
+                <span>This prize is non-transferable and cannot be exchanged for cash or any monetary equivalent.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-1.5 size-1 shrink-0 rounded-full bg-muted-foreground/50" />
+                <span>
+                  The complimentary Thailand ticket can be redeemed only on a Thailand Group Departure operated by
+                  Viazova.
+                </span>
+              </li>
+            </ul>
             <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent/15 px-4 py-2 text-sm font-medium text-accent-foreground">
               <Sparkles className="size-4" /> A once-in-a-lifetime journey awaits ✈️
             </div>
